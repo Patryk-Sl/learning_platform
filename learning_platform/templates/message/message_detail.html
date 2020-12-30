@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <h3>Wiadomość od: {{ message.user_from.get_full_name }} ({{ message.user_from.username }})</h3>
+    <p>Treść wiadomości:</p>
+        <div class="message-text">
+        {{ message.text }}
+        </div>
+
+    <a href="{% url 'index' %}"><button class="bt3">Powrót</button></a>
+
+{% endblock %}

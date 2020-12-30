@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+{% if user.groups.all.0.name == 'teachers' %}
+    {% for document in documents %}
+
+        <p>{{ document.description }}</p>
+        <a href="{{ document.document.url }}" >{{ document.document }}</a>
+        <a href="{% url 'document_delete' document.id %}"><button class="bt3">Usuń</button></a>
+
+    {% empty %}
+        <p>Nie masz przesłanych plików</p>
+
+    {% endfor %}
+{% endif %}
+{% endblock %}

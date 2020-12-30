@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %}Usuń kurs{% endblock %}
+
+{% block content %}
+    <h1>Usuń kurs {{ course.title }}</h1>
+
+    <div>
+        <form action="" method="post">
+            {% csrf_token %}
+            <p>Czy na pewno chcesz usunąc wiadomosc: "{{ course }}"?</p>
+            <button type="submint">Potwierdzam</button>
+        </form>
+    <button><a href="{% url 'course_list_view' %}">Wróc</a> </button>
+    </div>
+{% endblock %}

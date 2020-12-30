@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    {{ course.title }}
+{% endblock %}
+
+
+{% block content %}
+<h3>{{ course.title }}</h3>
+
+    <p>Instruktor:<a href="{% url 'message_new'  %}" title="Napisz wiadomość"> {{ course.owner.get_full_name }} ({{ course.owner.username }})</a></p>
+    <p>Opis:  </p>
+    <div class="box">{{ object.overview|linebreaks }}</div>
+
+<h3>Materiały edukacyjne:</h3>
+    <ul>
+    {% for document in documents %}
+       <li> <a href="{{ document.document.url }}" title="Zobacz materiał">{{ document.description }}</a>
+{#        <p>{{ document.description }}</p>#}
+{#        <a href="{{ document.document.url }}" >{{ document.document }}</a>#}
+    {% empty %}
+        <p>Nie masz przesłanych plików</p>
+    {% endfor %}
+    </ul>
+{% endblock %}

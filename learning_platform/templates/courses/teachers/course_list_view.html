@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block title %}Moje kursy{% endblock %}
+
+{% block content %}
+<h1><strong>MOJE KURSY</strong></h1>
+{% if user.groups.all.0.name == 'teachers' %}
+    {% for course in courses %}
+        <div class="course-info">
+            <a href="{% url 'course_detail' course.slug %}"><h3>{{ course.title }}</h3></a>
+            <p>
+                <a href="{% url 'course_edit' course.slug %}"><button class="bt3">Edytuj</button></a>
+                <a href="{% url 'course_delete' course.slug %}"><button class="bt3">Usuń</button></a>
+            </p>
+
+        </div>
+    {% empty %}
+        <p>Nie stworzyłeś jeszcze swoich kursów.</p>
+
+    {% endfor %}
+    <br /> 
+    <a href="{% url 'course_create' %}"><button class="bt3">Dodaj nowy kurs</button></a>
+{% else %}
+    Sory nie masz uprawnień. Zmień grupę.
+{% endif %}
+{% endblock %}

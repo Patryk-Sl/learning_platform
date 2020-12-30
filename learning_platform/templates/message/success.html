@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<form  method="post">
+
+
+
+    {% csrf_token %}
+    {{ forms.as_p }}
+{#    <input type="hidden" name="receiver_id" value="{{ receiver.id }}" />#}
+{#    <input type="file" name="file" />#}
+</form>
+{% endblock %}
+

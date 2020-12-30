@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+{% block content %}
+
+<h1>Napisz wiadomosc</h1>
+
+
+
+    <form action="{% url 'message_new'  %}" method="post">
+    <form action="" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+{#    <p>{{ form.user_to }}</p>#}
+{#        <p>{{ form.name }}</p>#}
+{#    <p>{{ form.text }}</p>#}
+        <input type="submit" value="Wyslij"/>
+
+        {% if user.groups.all.0.name == 'students' %}
+        <button><a href="{% url 'student_course_list_view' %}">Anuluj</a> </button>
+        {% endif %}
+        {% if user.groups.all.0.name == 'teachers' %}
+        <button><a href="{% url 'course_list_view' %}">Anuluj</a> </button>
+        {% endif %}
+        <button><a href="{% url 'home' %}">Anuluj</a> </button>
+    </form>
+
+
+
+
+{% endblock %}
+
+</html>

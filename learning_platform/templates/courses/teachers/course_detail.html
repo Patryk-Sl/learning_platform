@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    {{ course.title }}
+{% endblock %}
+
+{% block content %}
+    {% if user.groups.all.0.name == 'teachers' %}
+    <h3>{{ course.title }}</h3>
+
+    <p>Instruktor: {{ course.owner.get_full_name }}</p>
+    <p>Opis:  </p>
+    <div class="box">{{ object.overview|linebreaks }}</div>
+
+
+{#    <a href="{% url 'document' course.slug %}"><button class="bt3">Dostepne Pliki</button></a>#}
+
+    <h3>Zamieszczone materiały edukacyjne:</h3>
+    <ul>
+    {% for document in documents %}
+       <li><a href="{{ document.document.url }}" title="Zobacz materiał">{{ document.description }}</a>
+        <a href="{% url 'document_delete' document.id %}"><button class="bt3">Usuń</button></a></li>
+
+    {% empty %}
+        <p>Nie masz przesłanych plików</p>
+    {% endfor %}
+    </ul>
+    <a href="{% url 'upload' course.slug%}"><button class="bt3">Dodaj Plik</button></a>
+
+    <h3>Lista zapisanych studentów:</h3>
+    <ul>
+    {% for student in course.students.all %}
+        <li><a href="{% url 'message_new'  %}" title="Napisz wiadomość">{{ student.get_full_name }} ({{student.username}})</a></li>
+    {%  empty %}
+        Nie masz zapisanych studentów.
+    {% endfor %}
+    </ul>
+    <button class="bt3"><a href="{% url 'course_list_view' %}">Wróć</a> </button>
+    {% endif %}
+{% endblock %}

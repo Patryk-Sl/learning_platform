@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block title %}Kursy{% endblock %}
+
+{% block content %}
+<h1>Kursy</h1>
+{% if user.groups.all.0.name == 'students' %}
+    {% for course in courses %}
+    <div class="course-info">
+    <a href="{% url 'student_course_detail' course.slug %}"><h3>{{ course.title }}</h3></a>
+    </div>
+    {% empty %}
+        <p>Nie zostałeś zapisany na żaden kurs.</p>
+    {% endfor %}
+{% else %}
+    Sory nie masz uprawnień. Zmień grupę.
+{% endif %}
+{% endblock %}

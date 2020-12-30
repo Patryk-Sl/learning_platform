@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+{% block title %}{{message.username}}{% endblock %}
+
+{% block content %}
+<h1>Moje wiadomosci</h1>
+
+
+    {% for message in object_list %}
+        <div class="message-info">
+
+        <a href="{% url 'message_detail' message.id %}"><h3>{{ message.user_from.get_full_name }} ({{ message.user_from.username }})</h3></a>
+<p>
+     Tytuł: {{ message.title}} <br />
+        <a href="{% url 'message_delete' message.id %}"><button class="bt3">Usuń wiadomość</button></a>
+</p>
+        </div>
+
+    {% empty %}
+        <p>brak nowych wiadomosci</p>
+{% endfor %}
+<br /><br />
+
+
+<button><a href="{% url 'message_new'  %}">Napisz wiadomosc</a></button>
+
+
+
+    {% if user.groups.all.0.name == 'students' %}
+        <button><a href="{% url 'student_course_list_view' %}">Anuluj</a> </button>
+    {% endif %}
+    {% if user.groups.all.0.name == 'teachers' %}
+        <button><a href="{% url 'course_list_view' %}">Anuluj</a> </button>
+    {% endif %}
+
+{% endblock %}
+
+</html>ie
